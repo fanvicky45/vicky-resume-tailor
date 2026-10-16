@@ -1,0 +1,14 @@
+interface:
+  display_name: Vicky's Resume Tailoring Agent
+  short_description: Tailor truthful, scannable one-page CVs to each job
+  default_prompt: Use $vickys-resume-tailoring-agent with my master resume and this
+    job description to create a tailored one-page CV and retain my confirmed corrections.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
