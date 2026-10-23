@@ -49,9 +49,10 @@ Select professional experience and leadership by relevance, supported ownership 
 Use the candidate's explicit formatting preferences; otherwise apply this default:
 
 - Exactly one A4 page, single column, black text, Times New Roman around 11 pt, centred name, simple section rules, readable spacing, and right-aligned dates. Use geography-appropriate spelling.
-- Sections: PROFILE, EDUCATION, PROFESSIONAL EXPERIENCE, EXTRACURRICULAR & LEADERSHIP. Adjust section selection for an experienced candidate when their evidence makes a campus section irrelevant.
+- Sections: PROFILE, EDUCATION, PROFESSIONAL EXPERIENCE, EXTRACURRICULAR ACTIVITIES. Adjust section selection for an experienced candidate when their evidence makes a campus section irrelevant.
 - PROFILE: exactly one positioning sentence, followed by separate **Skills:** and **Languages:** lines populated only from this candidate's record. Never default to English and Mandarin or Vicky's email.
-- Give each included professional role three bullets; use a fourth only for distinctive evidence when the page fits.
+- EDUCATION: target two entries (one master's and one bachelor's when documented), newest first, at most two. Retain fewer when fewer exist.
+- Select three relevant professional roles when supported, at most three, in reverse chronological order, with three bullets per role. Retain fewer supported roles or bullets when necessary and explain the shortfall outside the CV. Never pad or duplicate achievements.
 - Select two relevant extracurricular/leadership activities when two are supported, with two bullets per activity. Retain fewer when fewer exist. Never invent an activity or pad unsupported bullets to meet a count.
 - Keep every bullet within one or two actual rendered lines. Write action, concrete work, and supported outcome; use methods or scale where relevant.
 - Bold employer names, short bullet lead-ins and selected job-relevant tools or outcomes. Italicise role lines. Keep enough unbolded text for emphasis to work.

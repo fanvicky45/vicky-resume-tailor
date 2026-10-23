@@ -9,6 +9,10 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    ".vinext/**",
+    ".sites-runtime/**",
+    ".wrangler/**",
+    "public/pdf.worker.min.mjs",
     "out/**",
     "build/**",
     "next-env.d.ts",

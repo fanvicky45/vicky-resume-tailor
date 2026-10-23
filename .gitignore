@@ -1,0 +1,13 @@
+node_modules/
+.sites-runtime/
+.wrangler/
+.next/
+dist/
+.env*
+.dev.vars*
+!.dev.vars.example
+public/pdf.worker.min.mjs
+*.tsbuildinfo
+.DS_Store
+.vinext/
+next-env.d.ts
