@@ -5,8 +5,8 @@ import { env } from 'cloudflare:workers';
 import { providerFailure } from '../../../lib/provider-errors';
 import { schema, instructions, type CV } from '../../../lib/tailor';
 const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'no-store'}});
-const config=()=>env as unknown as {OPENAI_API_KEY?:string;OPENAI_MODEL?:string;TAILOR_ACCESS_CODE?:string;API_ALLOWED_ORIGIN?:string};
-const pilotRequired=(req:Request)=>requiresPilotCode(req.url,process.env.NODE_ENV==='development');
+const config=()=>env as unknown as {OPENAI_API_KEY?:string;OPENAI_MODEL?:string;TAILOR_ACCESS_CODE?:string;API_ALLOWED_ORIGIN?:string;CODELESS_PILOT?:string;DAILY_BUDGET?:DurableObjectNamespace};
+const pilotRequired=(req:Request)=>config().CODELESS_PILOT!=='true'||!config().DAILY_BUDGET?requiresPilotCode(req.url,process.env.NODE_ENV==='development'):false;
 export function GET(req:Request){const e=config();const pilot=pilotRequired(req);return json({ready:!!(e.OPENAI_API_KEY&&e.OPENAI_MODEL&&(!pilot||e.TAILOR_ACCESS_CODE)),pilot});}
 const limits=new Map<string,{count:number;until:number}>();
 export async function POST(req:Request){
@@ -21,6 +21,11 @@ export async function POST(req:Request){
  const key=req.headers.get('cf-connecting-ip')||'preview';const now=Date.now();for(const [k,v] of limits)if(v.until<now)limits.delete(k);if(limits.size>10000)return json({error:'The pilot is busy. Please try later.'},429);const limit=limits.get(key)||{count:0,until:now+60000};if(++limit.count>3)return json({error:'Please wait a minute before generating another CV.'},429);limits.set(key,limit);
  try{
   const cv=await generateWithEvidenceRepair(input.resume,async repair=>{
+  if(e.CODELESS_PILOT==='true'){
+   if(!e.DAILY_BUDGET)throw Object.assign(new Error('Testing is temporarily unavailable. Please try later.'),{status:503});
+   const budget=await e.DAILY_BUDGET.get(e.DAILY_BUDGET.idFromName('global')).fetch('https://budget/consume');
+   if(!budget.ok)throw Object.assign(new Error('The daily testing limit has been reached. Please return tomorrow (UTC). Your inputs remain in this tab.'),{status:429});
+  }
   const upstream=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{'Authorization':`Bearer ${e.OPENAI_API_KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:e.OPENAI_MODEL,store:false,instructions:instructions+(repair?'\n'+repairInstructions:''),input:JSON.stringify({master_resume:input.resume,job_description:input.jd}),text:{format:{type:'json_schema',name:'tailored_cv',strict:true,schema}},max_output_tokens:6500}),signal:AbortSignal.timeout(90000)});
   if(!upstream.ok){const failure=providerFailure(upstream.status,await upstream.json().catch(()=>null));throw Object.assign(new Error(failure.error),{status:failure.status});}
   const data=await upstream.json() as {output?:{content?:{type:string;text?:string}[]}[];status?:string};

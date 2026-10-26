@@ -1,3 +1,4 @@
+export {DailyBudget} from './daily-budget';
 import {GET,POST} from '../app/api/tailor/route';
 import {allowedOrigin} from '../lib/allowed-origin';
 export default {async fetch(request:Request,env:{API_ALLOWED_ORIGIN?:string}){

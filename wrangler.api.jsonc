@@ -7,9 +7,26 @@
   ],
   "vars": {
     "OPENAI_MODEL": "gpt-5.4-mini",
-    "API_ALLOWED_ORIGIN": "https://fanvicky45.github.io"
+    "API_ALLOWED_ORIGIN": "https://fanvicky45.github.io",
+    "CODELESS_PILOT": "true"
   },
   "define": {
     "process.env.NODE_ENV": "\"production\""
-  }
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "DAILY_BUDGET",
+        "class_name": "DailyBudget"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "daily-budget-v1",
+      "new_sqlite_classes": [
+        "DailyBudget"
+      ]
+    }
+  ]
 }
