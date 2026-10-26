@@ -1,0 +1,15 @@
+{
+  "name": "vicky-resume-tailor-api",
+  "main": "portable/api-worker.ts",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "vars": {
+    "OPENAI_MODEL": "gpt-5.4-mini",
+    "API_ALLOWED_ORIGIN": "https://fanvicky45.github.io"
+  },
+  "define": {
+    "process.env.NODE_ENV": "\"production\""
+  }
+}

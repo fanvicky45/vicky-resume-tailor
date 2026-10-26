@@ -11,3 +11,5 @@ public/pdf.worker.min.mjs
 .DS_Store
 .vinext/
 next-env.d.ts
+
+dist-pages/
